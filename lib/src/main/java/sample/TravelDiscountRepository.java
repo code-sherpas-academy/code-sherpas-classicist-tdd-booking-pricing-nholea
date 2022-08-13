@@ -1,11 +1,14 @@
 package sample;
 
+import org.apache.commons.math3.util.Precision;
+
 import java.util.Random;
 
 public class TravelDiscountRepository {
 
-    public Integer getTravelDiscount () {
+    public Double getTravelDiscount (String travelId) {
+        Double randomDiscount = Precision.round(new Random().nextDouble(),2);
 
-        return new Random().nextInt(30);
+        return 1-randomDiscount;
     }
 }

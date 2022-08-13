@@ -16,9 +16,12 @@ class TravelPriceCalculatorTest {
     @Mock
     TravelTimeCalculator travelTimeCalculator;
     @Mock
+    TravelDiscountRepository travelDiscountRepository;
+    @Mock
     TravelRateRepository travelRateRepository;
     @InjectMocks
     TravelPriceCalculator travelPriceCalculator;
+
 
     @Test
     void calculate_price_first_case () {
@@ -33,7 +36,13 @@ class TravelPriceCalculatorTest {
 
     @Test
     void calculate_price_third_case () {
+        when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.0);
+    }
+
+    @Test
+    void calculate_price_fourth_case () {
         when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.6);
+        when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.48);
     }
 
 }
