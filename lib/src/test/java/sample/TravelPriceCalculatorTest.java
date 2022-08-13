@@ -31,4 +31,9 @@ class TravelPriceCalculatorTest {
         when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.6);
     }
 
+    @Test
+    void calculate_price_third_case () {
+        when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.6);
+    }
+
 }
