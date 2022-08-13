@@ -6,6 +6,11 @@ public class TravelTimeCalculator {
 
     public Integer getTravelTime (String travelId) {
 
-        return new Random().nextInt(1000);
+        return new Random().nextInt(2000) / 60;
+    }
+
+
+    public static void main (String[] args){
+        System.out.println(new TravelTimeCalculator().getTravelTime("5500"));
     }
 }

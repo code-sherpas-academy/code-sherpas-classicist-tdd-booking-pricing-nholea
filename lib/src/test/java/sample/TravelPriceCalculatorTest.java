@@ -1,23 +1,32 @@
 package sample;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class TravelPriceCalculatorTest {
+
+    @Mock
+    TravelTimeCalculator travelTimeCalculator;
+    @Mock
+    TravelRateRepository travelRateRepository;
+    @InjectMocks
+    TravelPriceCalculator travelPriceCalculator;
 
     @Test
     void calculate_price_first_case () {
-         TravelTimeCalculator travelTimeCalculator = new TravelTimeCalculator();
-         TravelRateRepository travelRateRepository = new TravelRateRepository();
-         TravelDiscountRepository travelDiscountRepository = new TravelDiscountRepository();
+        when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(3.0);
 
-        TravelPriceCalculator travelPriceCalculator = new TravelPriceCalculator(travelTimeCalculator, travelRateRepository, travelDiscountRepository);
-
-        Double price = travelPriceCalculator.getPrice("55");
-
-        Assertions.assertThat(price).isEqualTo(3.0);
     }
 
 }
