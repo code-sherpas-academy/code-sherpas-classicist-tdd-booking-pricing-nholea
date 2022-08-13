@@ -10,9 +10,4 @@ public class TravelRateRepository {
         return Precision.round(new Random().nextDouble(),2);
     }
 
-
-
-    public static void main (String[] args){
-        System.out.println(new TravelRateRepository().getTravelRate("5500"));
-    }
 }
