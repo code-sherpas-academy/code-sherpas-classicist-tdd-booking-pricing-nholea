@@ -31,10 +31,13 @@ public class TravelPriceCalculator {
     }
 
     public Double getPrice(String travelId) {
+        int travelTime = travelTimeCalculator.getTravelTime(travelId);
+        Double travelRate = travelRateRepository.getTravelRate(travelId);
+        Double travelDiscount = travelDiscountRepository.getTravelDiscount(travelId);
         if (travelDiscountRepository!=null) {
-            return Precision.round((travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId))* travelDiscountRepository.getTravelDiscount(travelId),2);
+            return Precision.round((travelTime * travelRate)* travelDiscount,2);
         }
-        return Precision.round(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId),2);
+        return Precision.round(travelTime * travelRate,2);
 
     }
 

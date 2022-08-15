@@ -48,7 +48,7 @@ class TravelPriceCalculatorTest {
     @Test
     void calculate_price_fifth_case () {
         when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.6);
-        when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456", 55)).thenReturn(0.54);
+        when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.48);
     }
 
 }
