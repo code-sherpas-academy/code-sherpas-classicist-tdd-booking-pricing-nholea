@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
+//@MockitoSettings(strictness = Strictness.LENIENT)
 class TravelPriceCalculatorTest {
 
     @Mock
@@ -28,7 +28,6 @@ class TravelPriceCalculatorTest {
 
     @Test
     void calculate_price_first_case () {
-        travelPriceCalculator.getPrice("456");
         when(travelTimeCalculator.getTravelTime("456")).thenReturn(15);
         when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
         assertThat(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).isEqualTo(3.0);
@@ -59,10 +58,10 @@ class TravelPriceCalculatorTest {
         //when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.48);
     }
 
-    @Test
+    /*@Test
     void calculate_price_fifth_case () {
         when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.6);
         when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.48);
-    }
+    }*/
 
 }
