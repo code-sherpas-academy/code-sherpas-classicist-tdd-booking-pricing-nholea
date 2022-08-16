@@ -6,8 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -55,11 +54,11 @@ class TravelPriceCalculatorTest {
 
     }
 
-    /*@Test
+    @Test
     void calculate_price_fifth_case () {
         when(travelTimeCalculator.getTravelTime("456")).thenReturn(3);
         when(travelRateRepository.getTravelRate("456",10)).thenReturn(0.18);
-        when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456",10))).thenReturn(0.54);
-    }*/
+        assertThat((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456",10))).isEqualTo(0.54);
+    }
 
 }
