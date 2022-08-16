@@ -13,7 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-//@MockitoSettings(strictness = Strictness.LENIENT)
 class TravelPriceCalculatorTest {
 
     @Mock
@@ -27,41 +26,40 @@ class TravelPriceCalculatorTest {
 
 
     @Test
-    void calculate_price_first_case () {
+    void calculate_price_first_case() {
         when(travelTimeCalculator.getTravelTime("456")).thenReturn(15);
         when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
         assertThat(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).isEqualTo(3.0);
     }
 
     @Test
-    void calculate_price_second_case () {
+    void calculate_price_second_case() {
         when(travelTimeCalculator.getTravelTime("456")).thenReturn(3);
         when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
-        assertThat(Precision.round(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456"),2)).isEqualTo(0.6);
+        assertThat(Precision.round(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456"), 2)).isEqualTo(0.6);
     }
 
     @Test
-    void calculate_price_third_case () {
+    void calculate_price_third_case() {
         when(travelTimeCalculator.getTravelTime("456")).thenReturn(0);
         when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
-        assertThat(Precision.round(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456"),2)).isEqualTo(0.0);
+        assertThat(Precision.round(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456"), 2)).isEqualTo(0.0);
     }
 
     @Test
-    void calculate_price_fourth_case () {
+    void calculate_price_fourth_case() {
         when(travelTimeCalculator.getTravelTime("456")).thenReturn(3);
         when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
         when(travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.8);
-        assertThat(Precision.round(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456"),2)).isEqualTo(0.6);
-        assertThat(Precision.round((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456"),2)).isEqualTo(0.48);
-        //when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.6);
-        //when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.48);
+        assertThat(Precision.round((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456"), 2)).isEqualTo(0.48);
+
     }
 
     /*@Test
     void calculate_price_fifth_case () {
-        when(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).thenReturn(0.6);
-        when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.48);
+        when(travelTimeCalculator.getTravelTime("456")).thenReturn(3);
+        when(travelRateRepository.getTravelRate("456",10)).thenReturn(0.18);
+        when((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456",10))).thenReturn(0.54);
     }*/
 
 }
