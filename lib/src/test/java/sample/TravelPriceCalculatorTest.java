@@ -23,42 +23,42 @@ class TravelPriceCalculatorTest {
     @InjectMocks
     TravelPriceCalculator travelPriceCalculator;
 
-
+    String travelId = "456";
     @Test
-    void calculate_price_first_case() {
-        when(travelTimeCalculator.getTravelTime("456")).thenReturn(15);
-        when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
-        assertThat(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")).isEqualTo(3.0);
+    void given_a_travel_time_in_minutes_and_a_travel_rate_return_a_travel_price() {
+        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(15);
+        when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
+        assertThat(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId)).isEqualTo(3.0);
     }
 
     @Test
-    void calculate_price_second_case() {
-        when(travelTimeCalculator.getTravelTime("456")).thenReturn(3);
-        when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
-        assertThat(Precision.round(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456"), 2)).isEqualTo(0.6);
+    void given_a_travel_time_rounded_in_minutes_and_a_travel_rate_return_a_travel_price() {
+        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
+        when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
+        assertThat(Precision.round(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId), 2)).isEqualTo(0.6);
     }
 
     @Test
-    void calculate_price_third_case() {
-        when(travelTimeCalculator.getTravelTime("456")).thenReturn(0);
-        when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
-        assertThat(Precision.round(travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456"), 2)).isEqualTo(0.0);
+    void given_a_travel_time_in_minutes_less_than_1_and_a_travel_rate_return_0() {
+        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(0);
+        when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
+        assertThat(Precision.round(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId), 2)).isEqualTo(0.0);
     }
 
     @Test
-    void calculate_price_fourth_case() {
-        when(travelTimeCalculator.getTravelTime("456")).thenReturn(3);
-        when(travelRateRepository.getTravelRate("456")).thenReturn(0.2);
-        when(travelDiscountRepository.getTravelDiscount("456")).thenReturn(0.8);
-        assertThat(Precision.round((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456")) * travelDiscountRepository.getTravelDiscount("456"), 2)).isEqualTo(0.48);
+    void given_a_travel_time_rounded_in_minutes_and_a_travel_rate_and_a_travel_discount_percentage_return_a_travel_price() {
+        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
+        when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
+        when(travelDiscountRepository.getTravelDiscount(travelId)).thenReturn(0.8);
+        assertThat(Precision.round((travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId)) * travelDiscountRepository.getTravelDiscount(travelId), 2)).isEqualTo(0.48);
 
     }
 
     @Test
-    void calculate_price_fifth_case () {
-        when(travelTimeCalculator.getTravelTime("456")).thenReturn(3);
-        when(travelRateRepository.getTravelRate("456",10)).thenReturn(0.18);
-        assertThat((travelTimeCalculator.getTravelTime("456") * travelRateRepository.getTravelRate("456",10))).isEqualTo(0.54);
+    void given_a_travel_time_rounded_in_minutes_and_a_travel_rate_with_discount_return_a_travel_price() {
+        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
+        when(travelRateRepository.getTravelRate(travelId,10)).thenReturn(0.18);
+        assertThat((travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId,10))).isEqualTo(0.54);
     }
 
 }
