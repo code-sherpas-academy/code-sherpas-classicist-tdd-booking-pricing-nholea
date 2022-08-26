@@ -56,4 +56,14 @@ class TravelPriceCalculatorTest {
         assertThat(Precision.round(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId) *travelDiscountRepository.getTravelDiscount(travelId), 2)).isEqualTo(0.48);
     }
 
+    @Test
+    void given_a_travel_time_in_minutes_and_a_percentage_discount_travel_rate_return_a_travel_price(){
+        int percentageDiscount = 10;
+
+        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
+        when(travelRateRepository.getTravelRate(travelId,percentageDiscount)).thenReturn(0.18);
+
+        assertThat(Precision.round( travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId,percentageDiscount),2)).isEqualTo(0.54);
+    }
+
 }
