@@ -28,6 +28,7 @@ class TravelPriceCalculatorTest {
     void given_a_travel_time_in_minutes_and_a_travel_rate_return_a_travel_price() {
         when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(15);
         when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
+
         assertThat(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId)).isEqualTo(3.0);
     }
 
@@ -35,6 +36,7 @@ class TravelPriceCalculatorTest {
     void given_a_travel_time_rounded_in_minutes_and_a_travel_rate_return_a_travel_price() {
         when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
         when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
+
         assertThat(Precision.round(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId), 2)).isEqualTo(0.6);
     }
 
@@ -42,23 +44,16 @@ class TravelPriceCalculatorTest {
     void given_a_travel_time_in_minutes_less_than_1_and_a_travel_rate_return_0() {
         when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(0);
         when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
+
         assertThat(Precision.round(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId), 2)).isEqualTo(0.0);
     }
-
     @Test
-    void given_a_travel_time_rounded_in_minutes_and_a_travel_rate_and_a_travel_discount_percentage_return_a_travel_price() {
+    void given_a_travel_time_in_minutes_a_travel_rate_and_a_travel_discount_percentage_return_a_travel_price_with_travel_discount_applied(){
         when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
         when(travelRateRepository.getTravelRate(travelId)).thenReturn(0.2);
         when(travelDiscountRepository.getTravelDiscount(travelId)).thenReturn(0.8);
-        assertThat(Precision.round((travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId)) * travelDiscountRepository.getTravelDiscount(travelId), 2)).isEqualTo(0.48);
 
-    }
-
-    @Test
-    void given_a_travel_time_rounded_in_minutes_and_a_travel_rate_with_discount_return_a_travel_price() {
-        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
-        when(travelRateRepository.getTravelRate(travelId,10)).thenReturn(0.18);
-        assertThat((travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId,10))).isEqualTo(0.54);
+        assertThat(Precision.round(travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId) *travelDiscountRepository.getTravelDiscount(travelId), 2)).isEqualTo(0.48);
     }
 
 }
