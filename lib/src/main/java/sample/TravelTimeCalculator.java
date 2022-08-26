@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class TravelTimeCalculator {
 
+
+
     public Integer getTravelTime (String travelId) {
 
         int randomSecondTime = new Random().nextInt(2000);

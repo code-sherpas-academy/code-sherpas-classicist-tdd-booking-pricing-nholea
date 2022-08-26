@@ -7,7 +7,7 @@ import java.util.Random;
 public class TravelDiscountRepository {
 
     public Double getTravelDiscount (String travelId) {
-        Double randomDiscount = Precision.round(new Random().nextDouble(),2);
+        double randomDiscount = Precision.round(new Random().nextDouble(),2);
 
         return 1-randomDiscount;
     }

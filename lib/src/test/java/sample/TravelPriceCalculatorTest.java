@@ -20,6 +20,8 @@ class TravelPriceCalculatorTest {
     TravelDiscountRepository travelDiscountRepository;
     @Mock
     TravelRateRepository travelRateRepository;
+
+
     @InjectMocks
     TravelPriceCalculator travelPriceCalculator;
 
@@ -64,6 +66,13 @@ class TravelPriceCalculatorTest {
         when(travelRateRepository.getTravelRate(travelId,percentageDiscount)).thenReturn(0.18);
 
         assertThat(Precision.round( travelTimeCalculator.getTravelTime(travelId) * travelRateRepository.getTravelRate(travelId,percentageDiscount),2)).isEqualTo(0.54);
+    }
+
+    @Test
+    void given_a_travel_pass_a_rate_will_to_the_first_travel_minutes_and_another_rate_to_the_rest_of_minutes(){
+        when(travelTimeCalculator.getTravelTime(travelId)).thenReturn(3);
+        TravelPass travelPass = new TravelPass();
+        assertThat(Precision.round(travelPass.getTravelPassRate(travelId,travelTimeCalculator.getTravelTime(travelId)),2)).isEqualTo(0.5);
     }
 
 }

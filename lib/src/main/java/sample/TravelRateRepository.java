@@ -13,7 +13,7 @@ public class TravelRateRepository {
     }
 
     public Double getTravelRate(String travelId, int percentageDiscount){
-        Double discount = 1 -(percentageDiscount / 100.);
+        double discount = 1 -(percentageDiscount / 100.);
 
         return Precision.round(new Random().nextDouble() * discount,2);
     }
